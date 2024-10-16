@@ -1,32 +1,51 @@
 import { useState, useEffect } from "react";
-import { IProduct } from './interfaces/productInterface';
+import { IProduct, IPageInfo, IApiResponse } from './interfaces/productInterface';
 import "./App.css"
 
 function App() {
 
-  const [initialArticlesPage, setInitialArticlesPage] = useState(100)
-  const [getInitialProduts, setGetInitialProduts] = useState<IProduct[]>();
+  const [initialArticlesPage, setInitialArticlesPage] = useState<number>(0)
+  const [getInitialProducts, setGetInitialProducts] = useState<IProduct[] | undefined >([]);
+  // const [totalProduts, setTotalProducts] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false)
   
-  const getProductsRandom = async () => {
-       const response = await fetch(`http://localhost:4050/products`);
-       const data: IProduct[] = await response.json();
-        console.log(data)
-       setGetInitialProduts(data);
 
-  }
+  const getProductsRandom = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`http://localhost:4050/products?page=${initialArticlesPage}`);
+      const data: IProduct[] = await response.json();
+          
+      setGetInitialProducts(data.productsList);
+      // setTotalProducts(data.total);
+
+    } catch (error) {
+      
+    };
+  };
 
   useEffect(() => {
-    
     getProductsRandom();
-    
-  }, [])
+  }, [initialArticlesPage])
+
+  const handlerSumPage = () => {
+    if (initialArticlesPage < 10) {
+      setInitialArticlesPage(initialArticlesPage + 1);
+    }
+  }
+
+  const handlerRestPage = () => {
+    if (initialArticlesPage > 0) {
+      setInitialArticlesPage(initialArticlesPage - 1);
+    }
+  }
   
 
   return (
     <main>
 
       <section className="header">
-        <img src="public/viafirma-logo.svg"/>
+        <img src="/viafirma-logo.svg"/>
         <div className="header__name-buttons">
           <h1>Listado de productos</h1>
           <div className="header__name-buttons--buttons">
@@ -43,18 +62,21 @@ function App() {
           <p>Name of product</p>
           <p>Price</p>
         </div>
+        
         <div className="content__products">
-        {/* Aqui se hace el map y es lo que se va a repetir a muerte */}
-          <div className="content__products--fields">
-            <p>sku</p>
-            <p>Name of product</p>
-            <p>Price</p>
-          </div>
+        {getInitialProducts?.map((e) => (
+        <div className="content__products--fields" key={e._id}>
+          <p>{e._id}</p>
+          <p>{e.name}</p>
+          <p>{e.price}€</p>
+        </div>
+      ))}
+
         </div>
         <div className="content__paginator-buttons">
-          <p>Texto enseñando X de 1000</p>
-          <button>Next 100</button>
-          <button>Prev 100</button>
+          <p>Pag {initialArticlesPage + 1 } de 10</p>
+          <button onClick={handlerRestPage}>Prev 100</button>
+          <button onClick={handlerSumPage}>Next 100</button>
         </div>
 
       </section>
