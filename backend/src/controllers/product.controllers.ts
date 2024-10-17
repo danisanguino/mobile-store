@@ -6,7 +6,7 @@ import ProductModel from "../models/product.model";
 export const getAllProductsRandom = async (req: Request, res:Response)=> {
     try {
         const page = Number(req.query.page) || 0;
-        const productPerPage = 5;
+        const productPerPage = 100;
             
         const allProducts = await ProductModel.find().skip(page * productPerPage).limit(productPerPage);
         const productsList = allProducts.sort(() => Math.random() - 0.5);
@@ -30,7 +30,7 @@ export const getAllProductsSortSkus = async (req: Request, res:Response)=> {
     try {
 
         const page = Number(req.query.page) || 0;
-        const productPerPage = 5;
+        const productPerPage = 100;
 
         //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
         const productsList = await ProductModel.find().sort({ sku: 1 }).skip(page * productPerPage).limit(productPerPage);
@@ -54,7 +54,7 @@ export const getAllProductsSortPriceAscen = async (req: Request, res:Response)=>
     try {
 
         const page = Number(req.query.page) || 0;
-        const productPerPage = 5;
+        const productPerPage = 100;
 
         //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
         const productsList = await ProductModel.find().sort({ price: 1 }).skip(page * productPerPage).limit(productPerPage);
@@ -78,7 +78,7 @@ export const getAllProductsSortPriceDescen = async (req: Request, res:Response)=
     try {
 
         const page = Number(req.query.page) || 0;
-        const productPerPage = 5;
+        const productPerPage = 100;
 
         //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
         const productsList = await ProductModel.find().sort({ price: -1 }).skip(page * productPerPage).limit(productPerPage);
