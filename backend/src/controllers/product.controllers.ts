@@ -2,19 +2,13 @@ import { Request, Response } from "express";
 import ProductModel from "../models/product.model";
 
 
-
+//GET PRODUCTS IN RANDOM MODE
 export const getAllProductsRandom = async (req: Request, res:Response)=> {
     try {
-        //OTRA LOGICA PARA CARGAR DE MANERA ALEATORIA LOS PRODUCTOS
-        // const allProducts = await ProductModel.aggregate([
-        //                                                     { $addFields: { random: { $rand: {} } } },  
-        //                                                     { $sort: { random: 1 } }                   
-        //                                                  ]);
-
         const page = Number(req.query.page) || 0;
-        const productPerPage = 100;
+        const productPerPage = 5;
             
-        const allProducts = await ProductModel.find().skip(page).limit(productPerPage);
+        const allProducts = await ProductModel.find().skip(page * productPerPage).limit(productPerPage);
         const productsList = allProducts.sort(() => Math.random() - 0.5);
         const total = await ProductModel.countDocuments();
                    
@@ -31,23 +25,71 @@ export const getAllProductsRandom = async (req: Request, res:Response)=> {
     }
 };
 
-
+//ORDER BY SKUS
 export const getAllProductsSortSkus = async (req: Request, res:Response)=> {
     try {
 
         const page = Number(req.query.page) || 0;
-        const quantyPerPage = 10;
+        const productPerPage = 5;
 
         //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
-        const allProductsBySkus = await ProductModel.find().sort({ price: 1 }).skip(page).limit(quantyPerPage);
+        const productsList = await ProductModel.find().sort({ sku: 1 }).skip(page * productPerPage).limit(productPerPage);
         const total = await ProductModel.countDocuments();
         
         res.status(202).send({
                             ok: true,
-                            allProductsBySkus,
+                            productsList,
                             page: {
                                 page,
-                                quantyPerPage,
+                                productPerPage,
+                                total
+                            }});
+    } catch (error) {
+        res.status(400).send(error);
+    };
+};
+
+//ORDER BY PRICE ASCEN
+export const getAllProductsSortPriceAscen = async (req: Request, res:Response)=> {
+    try {
+
+        const page = Number(req.query.page) || 0;
+        const productPerPage = 5;
+
+        //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
+        const productsList = await ProductModel.find().sort({ price: 1 }).skip(page * productPerPage).limit(productPerPage);
+        const total = await ProductModel.countDocuments();
+        
+        res.status(202).send({
+                            ok: true,
+                            productsList,
+                            page: {
+                                page,
+                                productPerPage,
+                                total
+                            }});
+    } catch (error) {
+        res.status(400).send(error);
+    };
+};
+
+//ORDER BY PRICE DESCEN
+export const getAllProductsSortPriceDescen = async (req: Request, res:Response)=> {
+    try {
+
+        const page = Number(req.query.page) || 0;
+        const productPerPage = 5;
+
+        //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
+        const productsList = await ProductModel.find().sort({ price: -1 }).skip(page * productPerPage).limit(productPerPage);
+        const total = await ProductModel.countDocuments();
+        
+        res.status(202).send({
+                            ok: true,
+                            productsList,
+                            page: {
+                                page,
+                                productPerPage,
                                 total
                             }});
     } catch (error) {
@@ -56,28 +98,8 @@ export const getAllProductsSortSkus = async (req: Request, res:Response)=> {
 };
 
 
-export const getAllProductsSortPriceAscen = async (req: Request, res:Response)=> {
-    try {
-        const allProductsByPricesAscen = await ProductModel.find().sort({ price: 1 });
-        res.status(202).send(allProductsByPricesAscen);
-    } catch (error) {
-        res.status(400).send(error);
-    };
-};
 
-
-export const getAllProductsSortPriceDescen = async (req: Request, res:Response)=> {
-    try {
-        const allProductsByPricesDescen = await ProductModel.find().sort( { price: -1 } );
-        res.status(202).send(allProductsByPricesDescen);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-}
-
-
-
-// No necesito esto de momento
+// INSERT PRODUCT
 export const createProduct = async (req: Request, res:Response)=> {
     const { sku, name, price } = req.body;
 

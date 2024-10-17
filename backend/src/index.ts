@@ -9,7 +9,7 @@ const startServer = async () => {
     try {
         await connect(); 
         appExpress.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT} and conected to my DB mother fuckers`);
+            console.log(`Server is running on port ${PORT} and conected at mongoDB`);
         });
     } catch (error) {
         console.error("Error connecting to the database or starting the server:", error);
