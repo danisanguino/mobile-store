@@ -3,9 +3,7 @@ import {  getAllProductsRandom,
           createProduct,
           getAllProductsSortSkus,
           getAllProductsSortPriceAscen,
-          getAllProductsSortPriceDescen,
-          // updateProduct,
-          // deleteProduct
+          getAllProductsSortPriceDescen
         } from "../controllers/product.controllers";
 
 const productRouter = Router();
@@ -15,9 +13,7 @@ productRouter.get("/skus", getAllProductsSortSkus);
 productRouter.get("/priceAs", getAllProductsSortPriceAscen);
 productRouter.get("/priceDes", getAllProductsSortPriceDescen);
  
-
 productRouter.post("/", createProduct);
-// productRouter.patch("/:sku", updateProduct);
-// productRouter.delete("/:sku", deleteProduct);
+
 
 export default productRouter;

@@ -1,6 +1,8 @@
-# Viafirma Product API - MERN Stack Project
+# 📦 Viafirma Product API - MERN Stack Project
 
 This repository contains a full-stack web application for managing product listings, developed using the MERN (MongoDB, Express, React, Node.js) stack.
+
+More details inside README.md of frontend and backend
 
 ## Project Structure
 
@@ -20,7 +22,6 @@ This repository contains a full-stack web application for managing product listi
 - Communicates with MongoDB for data persistence.
 
 ### Running the Project
-
 To start both the frontend and backend simultaneously, use the following command from the root of the repository:
 
 ```bash

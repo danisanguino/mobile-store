@@ -11,11 +11,11 @@ export const Content = () => {
   const [initialArticlesPage, setInitialArticlesPage] = useState<number>(0)
   const [getInitialProducts, setGetInitialProducts] = useState<IProduct[] | undefined >([]);
   const [totalProducts, setTotalProducts] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
+  
   
 
   useEffect(() => {
-    getProductsRandom(setLoading, setGetInitialProducts, setTotalProducts, url, initialArticlesPage);
+    getProductsRandom(setGetInitialProducts, setTotalProducts, url, initialArticlesPage);
   }, [initialArticlesPage, url])
 
 
@@ -40,22 +40,18 @@ export const Content = () => {
           <div className="content__fields--field-price"><p>Precio</p></div>
         </div>
         
-        {!loading ? (
-        <p>Cargando productos...</p>
-             ) : (
-          <div className="content__products">
-            {getInitialProducts?.map((e) => (
+        
+        <div className="content__products">
+          {getInitialProducts?.map((e) => (
 
-              <div className="content__products--fields" key={e.sku}>
-                <div className="content__products--fields-field-sku"><p>{e.sku}</p></div>
-                <div className="content__products--fields-field-name"><p>{e.name}</p></div>
-                <div className="content__products--fields-field-price"><p>{e.price}€</p></div>
-                
-              </div>
-              
-            ))}
-          </div>
-          )}
+            <div className="content__products--fields" key={e.sku}>
+              <div className="content__products--fields-field-sku"><p>{e.sku}</p></div>
+              <div className="content__products--fields-field-name"><p>{e.name}</p></div>
+              <div className="content__products--fields-field-price"><p>{e.price}€</p></div>   
+            </div>
+            
+          ))}
+        </div>
 
         <div className="content__paginator-content">
           <div className="content__paginator-content--total">

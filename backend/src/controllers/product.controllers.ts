@@ -32,7 +32,6 @@ export const getAllProductsSortSkus = async (req: Request, res:Response)=> {
         const page = Number(req.query.page) || 0;
         const productPerPage = 100;
 
-        //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
         const productsList = await ProductModel.find().sort({ sku: 1 }).skip(page * productPerPage).limit(productPerPage);
         const total = await ProductModel.countDocuments();
         
@@ -56,7 +55,6 @@ export const getAllProductsSortPriceAscen = async (req: Request, res:Response)=>
         const page = Number(req.query.page) || 0;
         const productPerPage = 100;
 
-        //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
         const productsList = await ProductModel.find().sort({ price: 1 }).skip(page * productPerPage).limit(productPerPage);
         const total = await ProductModel.countDocuments();
         
@@ -80,7 +78,6 @@ export const getAllProductsSortPriceDescen = async (req: Request, res:Response)=
         const page = Number(req.query.page) || 0;
         const productPerPage = 100;
 
-        //Meter los 2 en la misma promesa con el video https://www.youtube.com/watch?v=5gWjzK2e-Sg
         const productsList = await ProductModel.find().sort({ price: -1 }).skip(page * productPerPage).limit(productPerPage);
         const total = await ProductModel.countDocuments();
         
@@ -98,7 +95,6 @@ export const getAllProductsSortPriceDescen = async (req: Request, res:Response)=
 };
 
 
-
 // INSERT PRODUCT
 export const createProduct = async (req: Request, res:Response)=> {
     const { sku, name, price } = req.body;
@@ -110,13 +106,3 @@ export const createProduct = async (req: Request, res:Response)=> {
         res.status(400).send(error);
     }
 };
-
-// export const updateProduct = (req: Request, res:Response)=> {
-//     console.log(req.params)
-//     res.send("product updeated")
-// };
-
-// export const deleteProduct = (req: Request, res:Response)=> {
-//     const { sku } = req.params
-//     res.send(`product with ${ sku } sku has been deleted`)
-// };
