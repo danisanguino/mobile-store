@@ -8,10 +8,14 @@ export const getAllProductsRandom = async (req: Request, res:Response)=> {
         const page = Number(req.query.page) || 0;
         const productPerPage = 100;
             
-        const allProducts = await ProductModel.find().skip(page * productPerPage).limit(productPerPage);
+        const [allProducts, total ] = await Promise.all([
+            ProductModel.find().skip(page * productPerPage).limit(productPerPage),
+            ProductModel.countDocuments()
+        ]);
+
+        //Random 
         const productsList = allProducts.sort(() => Math.random() - 0.5);
-        const total = await ProductModel.countDocuments();
-                   
+
         res.status(201).send({
                             ok: true,
                             productsList,
@@ -25,15 +29,17 @@ export const getAllProductsRandom = async (req: Request, res:Response)=> {
     }
 };
 
-//ORDER BY SKUS
+//GET PRODUCTS SORTED BY SKUS
 export const getAllProductsSortSkus = async (req: Request, res:Response)=> {
     try {
 
         const page = Number(req.query.page) || 0;
         const productPerPage = 100;
 
-        const productsList = await ProductModel.find().sort({ sku: 1 }).skip(page * productPerPage).limit(productPerPage);
-        const total = await ProductModel.countDocuments();
+        const [productsList, total] = await Promise.all ([
+            ProductModel.find().sort({ sku: 1 }).skip(page * productPerPage).limit(productPerPage),
+            ProductModel.countDocuments()
+        ]);
         
         res.status(202).send({
                             ok: true,
@@ -48,15 +54,17 @@ export const getAllProductsSortSkus = async (req: Request, res:Response)=> {
     };
 };
 
-//ORDER BY PRICE ASCEN
+//GET PRODUCTS SORTED BY ASCENDING PRICE
 export const getAllProductsSortPriceAscen = async (req: Request, res:Response)=> {
     try {
 
         const page = Number(req.query.page) || 0;
         const productPerPage = 100;
 
-        const productsList = await ProductModel.find().sort({ price: 1 }).skip(page * productPerPage).limit(productPerPage);
-        const total = await ProductModel.countDocuments();
+        const [productsList, total] = await Promise.all ([
+            ProductModel.find().sort({ price: 1 }).skip(page * productPerPage).limit(productPerPage),
+            ProductModel.countDocuments()
+        ]);
         
         res.status(202).send({
                             ok: true,
@@ -71,15 +79,17 @@ export const getAllProductsSortPriceAscen = async (req: Request, res:Response)=>
     };
 };
 
-//ORDER BY PRICE DESCEN
+//GET PRODUCTS SORTED BY DESCENDING PRICE
 export const getAllProductsSortPriceDescen = async (req: Request, res:Response)=> {
     try {
 
         const page = Number(req.query.page) || 0;
         const productPerPage = 100;
 
-        const productsList = await ProductModel.find().sort({ price: -1 }).skip(page * productPerPage).limit(productPerPage);
-        const total = await ProductModel.countDocuments();
+        const [productsList, total] = await Promise.all ([
+            ProductModel.find().sort({ price: -1 }).skip(page * productPerPage).limit(productPerPage),
+            ProductModel.countDocuments()
+        ]);
         
         res.status(202).send({
                             ok: true,

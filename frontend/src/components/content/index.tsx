@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { IProduct} from '../../interfaces/productInterface';
-import "./content.css"
 import { getProductsRandom } from "../../utils/fetchProducts";
 import { handlerSortPriceAs, handlerSortPriceDes, handlerSortSkus } from "../../utils/sortFunctions";
 import { calculatePags, handlerRestPage, handlerSumPage } from "../../utils/paginatorFunctions";
+import "./content.css"
 
 export const Content = () => {
 

@@ -1,9 +1,9 @@
 import { Router } from "express";
 import {  getAllProductsRandom, 
-          createProduct,
           getAllProductsSortSkus,
           getAllProductsSortPriceAscen,
-          getAllProductsSortPriceDescen
+          getAllProductsSortPriceDescen,
+          createProduct
         } from "../controllers/product.controllers";
 
 const productRouter = Router();
