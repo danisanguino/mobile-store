@@ -12,7 +12,6 @@ export const Content = () => {
   const [getInitialProducts, setGetInitialProducts] = useState<IProduct[] | undefined >([]);
   const [totalProducts, setTotalProducts] = useState<number>(0);
   
-  
 
   useEffect(() => {
     getProductsRandom(setGetInitialProducts, setTotalProducts, url, initialArticlesPage);
