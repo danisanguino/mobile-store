@@ -1,4 +1,4 @@
-# 🛠 Viafirma Product API - Backend (MERN Stack)
+# 🛠 Product API - Backend (MERN Stack)
 
 ## Description
 This backend application provides a RESTful API for managing products. It follows the MVC (Model-View-Controller) architectural pattern and allows for reading and creating products. The backend is integrated with MongoDB Atlas for data storage and serves data to the frontend using CORS for cross-origin resource sharing.

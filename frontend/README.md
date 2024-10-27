@@ -1,4 +1,4 @@
-# 📦 Viafirma Product API - Frontend (MERN Stack)
+# 📦 Product API - Frontend (MERN Stack)
 
 ## Description
 This is a frontend application that interacts with a REST API to display and manage a list of products. The app allows users to sort the product list by SKUs, and price in both ascending and descending order.
