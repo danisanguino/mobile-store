@@ -5,7 +5,7 @@ export const Header = () => {
 
     <section className="header">
 
-    <img height={34} src="/viafirma-logo.svg"/>
+    <img height={70} src="/logo.svg"/>
     <h1>Prueba técnica</h1>
     
     </section>
